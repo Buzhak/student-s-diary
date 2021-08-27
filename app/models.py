@@ -24,9 +24,23 @@ class Student(Base):
     name = Column(String(100))
     school_class_id = Column(Integer, ForeignKey('school_classes.id'))
     school_class = relationship('School_class', back_populates='students')
+    assessment = relationship('Assessment')
 
     def __repr__(self):
         return f'Student name: {self.name}'
+
+
+class Assessment(Base):
+    __tablename__ = 'assessment'
+
+    id = Column(Integer, primary_key=True)
+    assessment = Column(Integer)
+    student_id = Column(Integer, ForeignKey('student.id'))
+    school_subject_id = Column(Integer, ForeignKey('school_subject.id'))
+    school_subject = relationship('School_subject')
+   
+    def __repr__(self):
+        return self.assessment
 
 
 class School_subject(Base):
@@ -37,16 +51,6 @@ class School_subject(Base):
     
     def __repr__(self):
         return f'School_subjec: {self.name}'
-
-
-class Assessment(Base):
-    __tablename__ = 'assessment'
-
-    id = Column(Integer, primary_key=True)
-    assessment = Column(Integer)
-   
-    def __repr__(self):
-        return self.assessment
 
 if __name__ == ('__main__'):
     Base.metadata.create_all(bind=engine)
