@@ -11,7 +11,7 @@ class School_class(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(3))
-    students = relationship('Student', back_populates='school_class')
+    students = relationship('Student', back_populates='school_class', lazy='joined')
 
     def __repr__(self):
         return f'Class name: {self.name}'
