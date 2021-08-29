@@ -47,9 +47,10 @@ def generate_data(assessments):
 if __name__ == ('__main__'):
     classes = get_clsasses()
     students = get_fake_students(classes)
-    subjects = get_assessments_by_subjects(students)
-    assessments = get_assessments(subjects)
-    generate_data(assessments)
+    assessments = get_assessments(students)
+    subjects = get_assessments_by_subjects(assessments)
+    
+    generate_data(subjects)
 
 
     # generate_data()
