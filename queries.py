@@ -1,3 +1,4 @@
+from os import name
 from app.db import db_session
 from app.models import School_class, School_subject, Student, Assessment
 
@@ -16,19 +17,19 @@ def students_by_classes(class_name):
     #     student_s_list.append(f'{class_.name} - {student.name}')
     # return student_s_list
 
-def assessment_by_student_and_subject(name, school_subject):
-    result = db_session.query(Assessment).join(
-        Assessment, Assessment.student_id == Student.id, Assessment.school_subject_id == School_subject.id
-        ).filter(Student.name == name, School_subject.name == school_subject).all()
+def assessment_by_student_and_subject(name, subject):
+    result = db_session.query(Student, School_subject, Assessment).filter(
+                              Assessment.school_subject_id == School_subject.id , Assessment.student_id == Student.id).join(
+                              Student, School_subject).filter(Student.name == name, School_subject.name == subject)
     assessment_list = []
-    for row in result:
-        assessment_list.append(f'{row.assessment}')
+    for student_name, school_subject, assessment in result:
+        assessment_list.append(f'{student_name.name} - {school_subject.name} - {assessment.assessment}')
 
     return assessment_list   
-# тут я все сломал!!!
+
 
 
 if __name__ == ('__main__'):
-    assessment_list = assessment_by_student_and_subject('Корнил Гертрудович Мишин', 'Русский')
+    assessment_list = assessment_by_student_and_subject('Полина Кирилловна Фролова', 'ИЗО')
     for row in assessment_list:
         print(row)
