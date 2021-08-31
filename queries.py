@@ -19,8 +19,9 @@ def students_by_classes(class_name):
 
 def assessment_by_student_and_subject(name, subject):
     result = db_session.query(Student, School_subject, Assessment).filter(
-                              Assessment.school_subject_id == School_subject.id , Assessment.student_id == Student.id).join(
-                              Student, School_subject).filter(Student.name == name, School_subject.name == subject)
+                              Assessment.school_subject_id == School_subject.id , Assessment.student_id == Student.id).filter(
+                              Student.name == name, School_subject.name == subject).join(
+                              Student, School_subject)
     assessment_list = []
     for student_name, school_subject, assessment in result:
         assessment_list.append(f'{student_name.name} - {school_subject.name} - {assessment.assessment}')
@@ -30,6 +31,6 @@ def assessment_by_student_and_subject(name, subject):
 
 
 if __name__ == ('__main__'):
-    assessment_list = assessment_by_student_and_subject('Полина Кирилловна Фролова', 'ИЗО')
+    assessment_list = assessment_by_student_and_subject('Гедеон Изотович Бобылев', 'Математика')
     for row in assessment_list:
         print(row)
