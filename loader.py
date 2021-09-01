@@ -5,7 +5,7 @@ from app.models import School_class, Student, Assessment, School_subject
 
 def read_csv(filename):
     with open(filename, "r", encoding='utf-8') as f:
-        fields = ['school_class', 'student', 'assessment', 'subject']
+        fields = ['school_class', 'student', 'subject', 'assessment']
         reader = csv.DictReader(f, fields, delimiter=';')
         data = []
         for row in reader:

@@ -37,7 +37,7 @@ class Assessment(Base):
     assessment = Column(Integer)
     student_id = Column(Integer, ForeignKey('student.id'))
     school_subject_id = Column(Integer, ForeignKey('school_subject.id'))
-    school_subject = relationship('School_subject')
+    school_subject = relationship('School_subject', lazy='joined')
    
     def __repr__(self):
         return self.assessment
@@ -50,7 +50,7 @@ class School_subject(Base):
     name = Column(String(20))
     
     def __repr__(self):
-        return f'School_subjec: {self.name}'
+        return f'{self.name}'
 
 if __name__ == ('__main__'):
     Base.metadata.create_all(bind=engine)

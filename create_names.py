@@ -34,7 +34,8 @@ def get_assessments(subjects, num_assessments=10):
     for subject in subjects:
         for _ in range(num_assessments):
             assessments_by_subjects.append(subject + [random.randint(2,5)])
-            
+
+   
     return assessments_by_subjects
 
 def generate_data(assessments):
@@ -42,15 +43,17 @@ def generate_data(assessments):
         writer = csv.writer(f, delimiter=';')
         for assessment in assessments:
             writer.writerow(assessment)
+            
 
 
 if __name__ == ('__main__'):
     classes = get_clsasses()
     students = get_fake_students(classes)
-    assessments = get_assessments(students)
-    subjects = get_assessments_by_subjects(assessments)
+    subjects = get_assessments_by_subjects(students)
+    assessments = get_assessments(subjects)
+
     
-    generate_data(subjects)
+    generate_data(assessments)
 
 
     # generate_data()
